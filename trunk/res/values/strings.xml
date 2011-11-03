@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Wallpaper for Tablets</string>
+    <string name="wallpaper_description">Wallpaper for Tablets</string>
+    <string name="set_as_wallpaper">Set as current wallpaper</string>
+</resources>

@@ -1,0 +1,66 @@
+<!-- 
+ /*
+ * Copyright (C) 2011 Wallpaper for Tablets Open Source Project
+ * 
+ * This file is part of Wallpaper for Tablets
+ * 
+ * Wallpaper for Tablets is free software: you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License as published 
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *   
+ * This source code is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with Wallpaper for Tablets.  If not, see <http://www.gnu.org/licenses/>.
+ */
+ -->
+<PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+            android:title="Settings">
+
+        <ListPreference
+                android:key="wp_type"
+                android:title="Wallpaper type"
+                android:summary="[not set]"
+                android:entries="@array/wp_entries"
+                android:entryValues="@array/wp_values"
+                android:dialogTitle="Wallpaper"
+                android:defaultValue="SingleColor" />
+                 
+        <CheckBoxPreference
+                android:key="double_tap_refresh"
+                android:title="Double-tap to refresh"
+                android:defaultValue="true"
+                android:summary="Double-tapping on the background will refresh the wallpaper (only applies to wallpapers that change images)" 
+                />
+                
+		<CheckBoxPreference 
+			android:key="darken_on_touch"  
+			android:defaultValue="true"
+			android:title="Darken wallpaper on touch"
+            android:summary="When interacting with the tablet the wallpaper will be darkened to improve contrast with the icons and widgets" 
+		/>			
+
+		<ListPreference
+			android:layout="?android:attr/preferenceLayoutChild"
+			android:key="darken_duration" 
+			android:title="Duration" 
+			android:dependency="darken_on_touch" 
+			android:summary="[not set]"
+            android:entries="@array/darken_duration_entries"
+            android:entryValues="@array/darken_duration_values"
+            android:dialogTitle="Duration"
+            android:defaultValue="2" />
+		/>
+                
+
+                
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+ /*
+ * Copyright (C) 2011 Wallpaper for Tablets Open Source Project
+ * 
+ * This file is part of Wallpaper for Tablets
+ * 
+ * Wallpaper for Tablets is free software: you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License as published 
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *   
+ * This source code is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with Wallpaper for Tablets.  If not, see <http://www.gnu.org/licenses/>.
+ */
+ -->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<PreferenceCategory android:title="Settings">
+	<!-- 
+		<CheckBoxPreference 
+			android:key="set_wallpaper_photosite"  
+			android:defaultValue="false"
+			android:title="@string/set_as_wallpaper" />
+		 -->
+		<!--  TODO: do this in other (image file) wp -->
+		<!-- 
+		<CheckBoxPreference 
+			android:key="photosite_shadow_on_touch"  
+			android:defaultValue="false" 
+			android:title="Shadow when touching screen" />
+
+		<ListPreference
+			android:layout="?android:attr/preferenceLayoutChild"
+			android:key="photosite_shadow_duration" 
+			android:title="Shadow duration" 
+			android:dependency="photosite_shadow_on_touch" 
+			android:summary="[not set]"
+            android:entries="@array/shadow_duration_entries"
+            android:entryValues="@array/shadow_duration_values"
+            android:dialogTitle="Duration"
+            android:defaultValue="2" />
+             -->
+		<ListPreference
+			android:key="photosite_refresh_interval" 
+			android:title="Refresh rate" 
+			android:summary="[not set]"
+            android:entries="@array/photosite_refresh_interval_entries"
+            android:entryValues="@array/photosite_refresh_interval_values"
+            android:dialogTitle="Refresh rate"
+            android:defaultValue="1440" />
+            
+		<CheckBoxPreference 
+			android:key="photosite_cache"  
+			android:defaultValue="true"
+			android:title="Cache last downloaded image" 
+			android:summary="Save the latest image to your device so it can be read locally on restarts, etc." />
+			
+	<!-- 
+		<CheckBoxPreference
+                android:key="photosite_fill_screen"
+                android:title="Fill screen"
+                android:defaultValue="true"
+                android:summary="Image will be cropped as necessary to fill the screen both horizontally and vertically" />
+			 -->
+			
+            <!-- 
+		<CheckBoxPreference 
+			android:key="photosite_random"  
+			android:defaultValue="false"
+			android:title="Random photo on double-tap" 
+			android:summary="Load a random photo from the chosen site on double-tap" />
+			 -->
+            
+		/>
+	</PreferenceCategory>
+	 	
+	<PreferenceCategory android:title="Site">
+
+		<CheckBoxPreference 
+			android:key="site_national_geographic"  
+			android:defaultValue="true"
+			android:title="National Geographic Photo of the Day" />
+	
+	<!-- 		
+		<CheckBoxPreference 
+			android:key="site_national_geographic_wall"  
+			android:defaultValue="false"
+			android:title="National Geographic Wallpapers" />
+
+		
+		<CheckBoxPreference 
+			android:key="site_500px"  
+			android:defaultValue="false"
+			android:title="500px Popular" />
+						 -->
+			
+		<CheckBoxPreference 
+			android:key="site_flickr"  
+			android:defaultValue="false"
+			android:title="Flickr daily 'Interestingness'" />
+
+		<CheckBoxPreference 
+			android:key="site_flickr_user"  
+			android:defaultValue="false"
+			android:title="Flickr user" />
+			
+		<EditTextPreference
+			android:layout="?android:attr/preferenceLayoutChild"
+			android:key="flickr_user_value" 
+			android:title="Username" 
+			android:dependency="site_flickr_user" 
+			android:summary="[not set]"
+            android:dialogTitle="Flickr user"
+             />
+		<CheckBoxPreference 
+			android:key="site_tumblr"  
+			android:defaultValue="false"
+			android:title="Tumblr account" />
+			
+		<EditTextPreference
+			android:layout="?android:attr/preferenceLayoutChild"
+			android:key="tumblr_name" 
+			android:title="Tumblr account name" 
+			android:dependency="site_tumblr" 
+			android:summary="[not set]"
+            android:dialogTitle="Tumblr account name"
+             />
+	</PreferenceCategory>
+			
+</PreferenceScreen>

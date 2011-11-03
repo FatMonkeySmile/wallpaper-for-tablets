@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+ /*
+ * Copyright (C) 2011 Wallpaper for Tablets Open Source Project
+ * 
+ * This file is part of Wallpaper for Tablets
+ * 
+ * Wallpaper for Tablets is free software: you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License as published 
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *   
+ * This source code is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with Wallpaper for Tablets.  If not, see <http://www.gnu.org/licenses/>.
+ */
+ -->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<PreferenceCategory android:title="Settings">
+<!-- 
+		<CheckBoxPreference 
+			android:key="set_wallpaper_image"  
+			android:defaultValue="false"
+			android:title="@string/set_as_wallpaper" />
+	 -->	
+
+        <CheckBoxPreference
+                android:key="image_file_fill_screen"
+                android:title="Fill screen"
+                android:defaultValue="true"
+                android:summary="Image will be cropped as necessary to fill the screen both horizontally and vertically" />
+                
+		<PreferenceScreen 
+			android:key="full_image_uri" android:title="Image"
+			android:summary="[not set]">
+		</PreferenceScreen>
+
+<!-- 
+		<com.ridgelineapps.wallpaper.preferences.SelectImagePreference
+			android:key="image_file" android:title="Select image..."
+			android:layout="@layout/image_preference" />
+			-->
+
+		<!-- <EditTextPreference android:key="image_file" android:title="Select 
+			image..." /> -->
+		<CheckBoxPreference android:key="portrait_image_set"
+			android:title="Use different image for portrait mode"
+			android:summary="" />
+
+		<!-- <EditTextPreference android:key="image_file_portrait" android:title="Select 
+			image..." android:dependency="portrait_image_set" android:layout="?android:attr/preferenceLayoutChild" 
+			/> -->
+<!-- 
+		<com.ridgelineapps.wallpaper.preferences.SelectPortraitImagePreference
+			android:key="image_file_portrait" android:title="Select image..."
+			android:layout="@layout/image_preference" />
+			 -->
+		<PreferenceScreen 
+			android:key="portrait_full_image_uri" 
+			android:title="Portrait Image" 
+			android:dependency="portrait_image_set"
+			android:layout="?android:attr/preferenceLayoutChild"
+			android:summary="[not set]">
+		</PreferenceScreen>
+
+			
+	</PreferenceCategory>
+</PreferenceScreen>

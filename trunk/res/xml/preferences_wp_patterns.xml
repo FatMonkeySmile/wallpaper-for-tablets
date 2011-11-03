@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+ /*
+ * Copyright (C) 2011 Wallpaper for Tablets Open Source Project
+ * 
+ * This file is part of Wallpaper for Tablets
+ * 
+ * Wallpaper for Tablets is free software: you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License as published 
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *   
+ * This source code is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with Wallpaper for Tablets.  If not, see <http://www.gnu.org/licenses/>.
+ */
+ -->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<PreferenceCategory android:title="Settings">
+	<!--
+		<CheckBoxPreference 
+			android:key="set_wallpaper_patterns"  
+			android:defaultValue="false"
+			android:title="@string/set_as_wallpaper" />
+		<CheckBoxPreference 
+			android:key="shadow_on_touch"  
+			android:defaultValue="true"
+			android:title="Shadow when touching screen" />
+
+		<ListPreference
+			android:layout="?android:attr/preferenceLayoutChild"
+			android:key="shadow_duration" 
+			android:title="Shadow duration" 
+			android:dependency="shadow_on_touch" 
+			android:summary="[not set]"
+            android:entries="@array/shadow_duration_entries"
+            android:entryValues="@array/shadow_duration_values"
+            android:dialogTitle="Duration"
+            android:defaultValue="2" />
+		/>
+	</PreferenceCategory>
+	<PreferenceCategory android:title="Patterns">
+	-->
+
+		<CheckBoxPreference 
+			android:key="patterns_targets"  
+			android:defaultValue="true"
+			android:title="Show 'Targets'" />
+		
+		<CheckBoxPreference 
+			android:key="patterns_jacks"  
+			android:defaultValue="true"
+			android:title="Show 'Jacks'" />
+
+		<CheckBoxPreference 
+			android:key="patterns_circlesincircles"  
+			android:defaultValue="true"
+			android:title="Show 'Circles in Circles'" />
+
+		<CheckBoxPreference 
+			android:key="patterns_lines"  
+			android:defaultValue="true"
+			android:title="Show 'Lines'" />
+
+		<CheckBoxPreference 
+			android:key="patterns_dots"  
+			android:defaultValue="true"
+			android:title="Show 'Dots'" />
+
+		<CheckBoxPreference 
+			android:key="patterns_rainbows"
+			android:defaultValue="true"
+			android:title="Show 'Growing Circles'" />
+
+		<CheckBoxPreference 
+			android:key="patterns_thincircles"
+			android:defaultValue="true"
+			android:title="Show 'Empty Circles'" />
+			
+		<CheckBoxPreference 
+			android:key="patterns_moons"
+			android:defaultValue="true"
+			android:title="Show 'Moons'" />
+	</PreferenceCategory>
+			
+</PreferenceScreen>

@@ -1,0 +1,25 @@
+Copyright 2011 (C) Wallpaper for Tablets Open Source Project
+ 
+Wallpaper for Tablets is an android live wallpaper which lets you change your background
+to a variety of images, patterns and animations as well as change a number of settings.  
+It is released under version of the GPL; see "COPYING" for the license text.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+As stated in individual files, this program uses open-source code from the following:
+
+Google Inc. (Apache License 2.0)
+http://code.google.com/p/dodge-android/ (GNU GPL v3)
+
+
+CHANGES
+0.1
+Initial Version
+
+0.2
+Fixed SingleColor to use the right colors
+Fixed the image degradation on resized images
+Removed "Bugs" wallpaper type -- moving it to a separate live wallpaper
