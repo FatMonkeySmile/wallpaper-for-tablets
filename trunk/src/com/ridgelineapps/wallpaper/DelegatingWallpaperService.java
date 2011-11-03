@@ -177,6 +177,7 @@ public class DelegatingWallpaperService extends WallpaperService {
             }
         }
 
+        @SuppressWarnings("rawtypes")
         public synchronized void refreshWallpaper(boolean reload) {
             // TODO: how often to get these? is there way to only set them when changed easily?
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
