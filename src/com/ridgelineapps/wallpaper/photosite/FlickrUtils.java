@@ -46,9 +46,7 @@ import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
@@ -1156,6 +1154,7 @@ public class FlickrUtils {
         }
     }
 
+    /*
     private boolean parseUpdated(XmlPullParser parser, Calendar reference) throws IOException,
             XmlPullParserException {
 
@@ -1187,7 +1186,7 @@ public class FlickrUtils {
         }
 
         return false;
-    }    
+    } */   
 
     private void parsePhotos(XmlPullParser parser, PhotoList photos)
             throws XmlPullParserException, IOException {
@@ -1380,6 +1379,7 @@ public class FlickrUtils {
      *
      * @throws IOException
      */
+    /*
     private void parseFeedResponse(InputStream in, ResponseParser responseParser)
             throws IOException {
 
@@ -1410,7 +1410,7 @@ public class FlickrUtils {
             ioe.initCause(e);
             throw ioe;
         }
-    }
+    } */
 
     /**
      * Executes an HTTP request on Flickr's web service. If the response is ok, the content
