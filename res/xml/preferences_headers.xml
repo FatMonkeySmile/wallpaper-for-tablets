@@ -1,0 +1,71 @@
+<!-- 
+ /*
+ * Copyright (C) 2011 Wallpaper for Tablets Open Source Project
+ * 
+ * This file is part of Wallpaper for Tablets
+ * 
+ * Wallpaper for Tablets is free software: you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License as published 
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *   
+ * This source code is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with Wallpaper for Tablets.  If not, see <http://www.gnu.org/licenses/>.
+ */
+ -->
+<preference-headers
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <header android:fragment="com.ridgelineapps.wallpaper.preferences.PrefsMain"
+            android:title="General Settings"
+            android:summary="Wallpaper selection and global settings" />
+
+    <header android:fragment="com.ridgelineapps.wallpaper.preferences.PrefsSingleColor"
+            android:title="Single Color Wallpaper"
+            android:summary="Settings for single color wallpaper">
+    </header>
+
+    <header android:fragment="com.ridgelineapps.wallpaper.preferences.PrefsImageFile"
+            android:title="Image File Wallpaper"
+            android:summary="Settings for simple image wallpaper">
+    </header>
+    
+    <header android:fragment="com.ridgelineapps.wallpaper.preferences.PrefsPatterns"
+            android:title="Patterns Wallpaper"
+            android:summary="Settings for abstract patterns wallpaper">
+    </header>
+    <!-- 
+    <header android:fragment="com.ridgelineapps.wallpaper.preferences.PrefsTemp"
+            android:title="Web Image Wallpaper"
+            android:summary="Settings for Internet image wallpaper">
+    </header>
+     -->
+    <header android:fragment="com.ridgelineapps.wallpaper.preferences.PrefsPhotoSite"
+            android:title="Photo Site Wallpaper"
+            android:summary="Settings for photo website wallpaper">
+    </header>
+<!--
+    <header android:fragment="com.ridgelineapps.wallpaper.preferences.PrefsTemp"
+            android:title="Tumblr Wallpaper"
+            android:summary="Settings for tumblr.com wallpaper">
+    </header>
+     -->
+<!--
+    <header android:fragment="com.ridgelineapps.wallpaper.preferences.PrefsTemp"
+            android:title="Photo of the Day Wallpaper"
+            android:summary="Settings for daily rotating wallpaper">
+    </header>
+     -->
+
+    <!--
+    <header android:fragment="com.ridgelineapps.wallpaper.preferences.PrefsTemp"
+            android:title="Advanced"
+            android:summary="Advanced settings">
+    </header>
+    -->
+</preference-headers>
