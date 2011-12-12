@@ -235,67 +235,32 @@ public class Utils {
         int imageShortSide = Math.min(o.outWidth, o.outHeight);
          
         int scale=1;
-        while(true){
-            if (fill) {
-                if(imageShortSide / 2 < longSide)
-                    break;
-            }
-            else {
-                if(imageLongSide / 2 < longSide)
-                    break;
-            }
+        // Option 1
+//        if (o.outHeight > longSide || o.outWidth > longSide) {
+//            scale = (int) Math.pow(2, (int) Math.round(Math.log(longSide / (double) Math.max(o.outHeight, o.outWidth)) / Math.log(0.5)));
+//        }
+        // Option 2
+        while(true) {
+        	// We check both short and long since image may be rotated now...
+        	if(imageLongSide / 2 < longSide) {
+        		break;
+        	}
+        	
+        	if(imageShortSide / 2 < longSide) {
+        		break;
+        	}
+        	
+//            if (fill) {
+//                if(imageShortSide / 2 < longSide)
+//                    break;
+//            }
+//            else {
+//                if(imageLongSide / 2 < longSide)
+//                    break;
+//            }
             imageLongSide /= 2;
             imageShortSide /= 2;
             scale *= 2;
-        }
-
-        // Decode with inSampleSize
-        BitmapFactory.Options o2 = new BitmapFactory.Options();
-        o2.inSampleSize = scale;
-
-        // TODO: dont' load stream twice?
-        is = context.getContentResolver().openInputStream(imageURI);
-        Bitmap bmp = BitmapFactory.decodeStream(is, null, o2);
-        try {
-            is.close();
-        } catch (Exception e) {
-            // TODO: put all in logs
-            e.printStackTrace();
-        }
-        return bmp;
-    }
-
-//    public static Bitmap scaledBitmapFromURIWithMinimumSize(Context context, Uri imageURI, int width, int height, boolean fill) throws FileNotFoundException {
-//        BitmapFactory.Options options = new BitmapFactory.Options();
-//        options.inJustDecodeBounds = true;
-//        Bitmap bmp = BitmapFactory.decodeStream(context.getContentResolver().openInputStream(imageURI), null, options);
-//        options.inJustDecodeBounds = false;
-//        float wratio = 1.0f * options.outWidth / width;
-//        float hratio = 1.0f * options.outHeight / height;
-//        if (fill) {
-//            options.inSampleSize = (int) Math.min(wratio, hratio);
-//        } else {
-//            options.inSampleSize = (int) Math.max(wratio, hratio);
-//        }
-//        // bmp.recycle();
-//        return BitmapFactory.decodeStream(context.getContentResolver().openInputStream(imageURI), null, options);
-//    }
-
-    public static Bitmap loadBitmap(Context context, Uri imageURI, int width, int height) throws FileNotFoundException {
-        BitmapFactory.Options o = new BitmapFactory.Options();
-        o.inJustDecodeBounds = true;
-        InputStream is = context.getContentResolver().openInputStream(imageURI);
-        BitmapFactory.decodeStream(is, null, o);
-        try {
-            is.close();
-        } catch (Exception e) {
-            // TODO: put all in logs
-            e.printStackTrace();
-        }
-        int scale = 1;
-        int longSide = Math.max(width, height);
-        if (o.outHeight > longSide || o.outWidth > longSide) {
-            scale = (int) Math.pow(2, (int) Math.round(Math.log(longSide / (double) Math.max(o.outHeight, o.outWidth)) / Math.log(0.5)));
         }
 
         // Decode with inSampleSize
