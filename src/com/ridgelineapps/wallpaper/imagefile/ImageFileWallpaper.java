@@ -40,6 +40,7 @@ public class ImageFileWallpaper extends WallpaperBase {
     boolean portraitDifferent;
 
     boolean fill = false;
+    boolean rotate = false;
     
     Paint bitmapPaint;
 
@@ -53,6 +54,8 @@ public class ImageFileWallpaper extends WallpaperBase {
     public void draw(Canvas canvas) {
         try {
             Bitmap bmp;
+            int width = this.width;
+            int height = this.height;
     
             if (portraitDifferent && width < height) {
                 bmp = imagePortrait;
@@ -90,8 +93,53 @@ public class ImageFileWallpaper extends WallpaperBase {
                 Rect dest = new Rect(x, y, x + destWidth, y + destHeight);
     
                 canvas.drawRect(0, 0, width, height, engine.background);
-                canvas.drawBitmap(bmp, null, dest, bitmapPaint);
-    
+                boolean rotated = false;
+                if(rotate) {
+                    if((width < height && destWidth > destHeight) || (width > height && destHeight > destWidth)) {
+                        rotated = true;
+                        int rWidth = height;
+                        int rHeight = width;
+
+                        scaleWidth = (float) rWidth / bmp.getWidth();
+                        scaleHeight = (float) rHeight / bmp.getHeight();
+            
+                        if (fill) {
+                            scale = Math.max(scaleWidth, scaleHeight);
+                        } else {
+                            scale = Math.min(scaleWidth, scaleHeight);
+                        }
+            
+                        destWidth = (int) (bmp.getWidth() * scale);
+                        destHeight = (int) (bmp.getHeight() * scale);
+            
+//                        x = (rWidth - destWidth);// / 2;
+//                        y = (rHeight - destHeight);// / 2;
+//                        System.out.println("*******************x, y: " + x + ", " + y);
+//                        System.out.println("*******************rWidth, rHeight: " + rWidth + ", " + rHeight);
+//                        System.out.println("*******************destWidth, destHeight: " + destWidth + ", " + destHeight);
+//                        
+//                        int centerX = x + destWidth / 2;
+//                        int centerY = y + destHeight / 2;
+                        
+//                        centerX = centerY = 0;
+//                        canvas.rotate(90, centerX, centerY);
+//                      canvas.rotate(90, centerX, centerY);
+                        canvas.rotate(90);
+
+                        y = -rHeight;
+                        x = (rWidth - destWidth) / 2;
+                        dest = new Rect(x, y, x + destWidth, y + destHeight);
+                        canvas.drawBitmap(bmp, null, dest, bitmapPaint);
+                        
+                        canvas.rotate(-90);
+//                        canvas.rotate(-90, centerX, centerY);
+                    }
+                }
+                
+                if(!rotated) {
+                    canvas.drawBitmap(bmp, null, dest, bitmapPaint);
+                }
+        
                 if(blackout) {
                     canvas.drawRect(0, 0, width, height, blackoutPaint);
                 }
@@ -123,6 +171,7 @@ public class ImageFileWallpaper extends WallpaperBase {
         if (reload) {
             SharedPreferences prefs = engine.getPrefs();
             fill = prefs.getBoolean("image_file_fill_screen", true);
+            rotate = prefs.getBoolean("image_file_rotate", false);
             
             fileUri = prefs.getString("full_image_uri", "");
 
