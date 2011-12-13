@@ -58,6 +58,7 @@ public class NationalGeographicWallSite implements Site {
         boolean success = false;
         String imageUrl = null;
         
+        //TODO: return downloaded image rather than downloading and throwing away...
         while(!success)
         {
             try {
