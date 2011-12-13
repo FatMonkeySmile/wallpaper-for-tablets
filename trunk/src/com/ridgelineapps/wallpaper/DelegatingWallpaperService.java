@@ -134,18 +134,11 @@ public class DelegatingWallpaperService extends WallpaperService {
         @Override
         public Bundle onCommand(String action, int x, int y, int z, Bundle extras, boolean resultRequested) {
 
-            if(wallpaper == null) {
+            if(wallpaper != null) {
                 if (doubleTapRefresh && action.equals(WallpaperManager.COMMAND_TAP)) {
                     long now = System.currentTimeMillis();
                     if(now - lastTap < DOUBLE_TAP_THRESH) {
-                        boolean newWallpaper = true;
-                        if(wallpaper != null) {
-                            if(!wallpaper.doubleTap()) {
-                                newWallpaper = false;
-                            }
-                        }
-                        
-                        if(newWallpaper) {
+                        if(wallpaper.doubleTap()) {
                             refreshWallpaper(true);
                         }
                         lastTap = 0;
