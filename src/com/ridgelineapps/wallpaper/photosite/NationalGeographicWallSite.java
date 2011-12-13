@@ -35,6 +35,10 @@ public class NationalGeographicWallSite implements Site {
         return "National Geographic Wallpapers";
     }
     
+	public boolean isRandom() {
+		return true;
+	}
+    
     public String loadImage(PhotoSiteWallpaper.ImageLoader imageLoader, boolean random) {
         String year = "11";
         

@@ -36,6 +36,10 @@ public class TumblrSite implements Site {
     public String getDisplayName() {
         return "Tumblr";
     }
+    
+	public boolean isRandom() {
+		return true;
+	}
 
     public String loadImage(PhotoSiteWallpaper.ImageLoader imageLoader, boolean random) {
         //TODO: fix that multiple double-taps causes multiple image loads at the same time and that double tap doesn't always blank out image immediately

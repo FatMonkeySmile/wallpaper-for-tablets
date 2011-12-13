@@ -153,8 +153,10 @@ public class PhotoSiteWallpaper extends WallpaperBase {
 
     @Override
     public boolean doubleTap() {
-        clearImage();
-        loadImage(false);        
+    	if(site.isRandom()) {
+	        clearImage();
+	        loadImage(false);
+    	}
         return false;
     }
     

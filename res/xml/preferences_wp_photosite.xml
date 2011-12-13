@@ -87,12 +87,13 @@
 			android:defaultValue="true"
 			android:title="National Geographic Photo of the Day" />
 	
-	<!-- 		
 		<CheckBoxPreference 
 			android:key="site_national_geographic_wall"  
 			android:defaultValue="false"
 			android:title="National Geographic Wallpapers" />
 
+
+	<!-- 		
 		
 		<CheckBoxPreference 
 			android:key="site_500px"  

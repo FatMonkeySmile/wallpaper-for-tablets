@@ -31,6 +31,10 @@ public class NationalGeographicSite implements Site {
         return "National Geographic Photo of the Day";
     }
     
+	public boolean isRandom() {
+		return false;
+	}
+    
     public String loadImage(PhotoSiteWallpaper.ImageLoader imageLoader, boolean random) {
         String img = null;
         
