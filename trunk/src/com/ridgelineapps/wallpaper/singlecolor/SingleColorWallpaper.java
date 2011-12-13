@@ -31,6 +31,11 @@ public class SingleColorWallpaper extends WallpaperBase {
     public Paint background;
 
     @Override
+    public boolean doubleTap() {
+        return false;
+    }
+    
+    @Override
     public void draw(Canvas canvas) {
         try {
             canvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), background);

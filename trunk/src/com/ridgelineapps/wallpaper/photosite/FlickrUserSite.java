@@ -31,6 +31,10 @@ public class FlickrUserSite implements Site {
     public String getDisplayName() {
         return "Flickr";
     }
+    
+	public boolean isRandom() {
+		return true;
+	}
 
     public String loadImage(PhotoSiteWallpaper.ImageLoader imageLoader, boolean random) {
         String img = null;

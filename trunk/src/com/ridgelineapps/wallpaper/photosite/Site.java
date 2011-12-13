@@ -22,6 +22,7 @@ package com.ridgelineapps.wallpaper.photosite;
 // Created in static constructor and used in prefs, don't do anything in the constructors...
 public interface Site {
     public String loadImage(PhotoSiteWallpaper.ImageLoader imageLoader, boolean random);
+    public boolean isRandom();
     public String getKeyName();
     public String getDisplayName();
 }

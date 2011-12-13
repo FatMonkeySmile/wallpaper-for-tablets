@@ -51,6 +51,11 @@ public class ImageFileWallpaper extends WallpaperBase {
     }
     
     @Override
+    public boolean doubleTap() {
+        return false;
+    }
+    
+    @Override
     public void draw(Canvas canvas) {
         try {
             Bitmap bmp;
