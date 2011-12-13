@@ -66,7 +66,7 @@ public class NationalGeographicWallSite implements Site {
                 int month = Rand.rangeI(1, 12);
                 String monthStr = padNumberString("" + month, 2);
                 
-                if(++attempts > 5) {
+                if(++attempts > 15) {
                     break;
                 }
                 imageUrl = baseUrl + monthStr + "/" + MONTHS[month] + year + "wallpaper-" + imgCount + "_1600.jpg";
