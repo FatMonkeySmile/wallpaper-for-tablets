@@ -90,7 +90,7 @@
 		<CheckBoxPreference 
 			android:key="site_national_geographic_wall"  
 			android:defaultValue="false"
-			android:title="National Geographic Wallpapers" />
+			android:title="National Geographic Random Wallpapers" />
 
 
 	<!-- 		

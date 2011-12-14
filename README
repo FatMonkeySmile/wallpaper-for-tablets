@@ -23,4 +23,6 @@ Initial Version
 0.2
 Fixed SingleColor to use the right colors
 Fixed the image degradation on resized images
+Added National Geographic Random Wallpapers as a Photo Site
 Removed "Bugs" wallpaper type -- moving it to a separate live wallpaper
+Various small bug fixes and enhancements
