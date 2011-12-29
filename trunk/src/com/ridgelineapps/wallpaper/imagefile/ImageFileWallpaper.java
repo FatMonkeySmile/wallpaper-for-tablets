@@ -35,10 +35,10 @@ public class ImageFileWallpaper extends WallpaperBase {
 
     Bitmap imagePortrait;
     String fileUriPortrait;
-    boolean portraitDifferent;
+    public boolean portraitDifferent;
 
-    boolean fill = false;
-    boolean rotate = false;
+    public boolean fill = false;
+    public boolean rotate = false;
     
     Paint bitmapPaint;
 

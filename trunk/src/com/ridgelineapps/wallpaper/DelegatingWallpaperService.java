@@ -30,7 +30,11 @@ import android.preference.PreferenceManager;
 import android.service.wallpaper.WallpaperService;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
+import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 import com.ridgelineapps.wallpaper.imagefile.ImageFileWallpaper;
 import com.ridgelineapps.wallpaper.patterns.CirclesInCircles;
 import com.ridgelineapps.wallpaper.patterns.Dots;
@@ -83,6 +87,8 @@ public class DelegatingWallpaperService extends WallpaperService {
 
         public Paint background;
 
+        GoogleAnalyticsTracker tracker;
+        
 
         public SimpleWallpaperEngine() {
             background = Utils.createPaint(0, 0, 0);
@@ -90,10 +96,31 @@ public class DelegatingWallpaperService extends WallpaperService {
 
             SharedPreferences prefs = getPrefs();
             prefs.registerOnSharedPreferenceChangeListener(this);
+            
+            try {
+                tracker = GoogleAnalyticsTracker.getInstance();
+                tracker.startNewSession("UA-28005805-1", 60 * 60, getBaseContext()); // Dispatch interval is once an hour
+            }
+            catch(Exception e) {
+            	e.printStackTrace();
+            }
         }
 
         public Context getBaseContext() {
             return DelegatingWallpaperService.this.getBaseContext();
+        }
+        
+        public void track(String s) {
+            if(tracker != null) {
+            	try {
+            		if(!s.startsWith("/")) {
+            			s = "/" + s;
+            		}
+            		tracker.trackPageView(s);
+            	} catch(Exception e) {
+            		e.printStackTrace();
+            	}
+            }
         }
 
         public synchronized void onSharedPreferenceChanged(SharedPreferences shared, String key) {
@@ -177,6 +204,8 @@ public class DelegatingWallpaperService extends WallpaperService {
             if(wallpaperType.equals("Bugs")) {
                 wallpaperType = "SingleColor";
             }
+            
+            track(wallpaperType);
 
             if (!reload && wallpaper != null) {
                 if(wallpaperType.equals("ImageFile") || wallpaperType.equals("PhotoSite")) {
@@ -207,27 +236,35 @@ public class DelegatingWallpaperService extends WallpaperService {
                     ArrayList<Class> choices = new ArrayList<Class>();
                     if (targets) {
                         choices.add(Targets.class);
+                        track("Patterns/targets");
                     }
                     if (jacks) {
                         choices.add(Jacks.class);
+                        track("Patterns/jacks");
                     }
                     if (circlesInCircles) {
                         choices.add(CirclesInCircles.class);
+                        track("Patterns/circlesInCircles");
                     }
                     if (rainbows) {
                         choices.add(Rainbows.class);
+                        track("Patterns/rainbows");
                     }
                     if (dots) {
                         choices.add(Dots.class);
+                        track("Patterns/dots");
                     }
                     if (lines) {
                         choices.add(Lines.class);
+                        track("Patterns/lines");
                     }
                     if (thinCircles) {
                         choices.add(ThinCircles.class);
+                        track("Patterns/thinCircles");
                     }
                     if (moons) {
                         choices.add(Moons.class);
+                        track("Patterns/moons");
                     }
 
                     if (oldWallpaper != null && reload && choices.size() > 1) {
@@ -256,6 +293,31 @@ public class DelegatingWallpaperService extends WallpaperService {
 
                     // TODO: only randomize if needed
                     wallpaper.randomize();
+
+                    try
+                    {
+                        track(wallpaperType + "/darken_" + wallpaper.blackout);
+                        track(wallpaperType + "/doubleTap_" + doubleTapRefresh);
+                    	
+	                    if (wallpaper instanceof PhotoSiteWallpaper) {
+	                    	PhotoSiteWallpaper w = (PhotoSiteWallpaper) wallpaper;
+	                    	if(w.site != null) {
+	                    		track("PhotoSite/" + w.site.getKeyName());
+		                   		track("PhotoSite/rate_" + w.refreshInterval);
+		                   		track("PhotoSite/cache_" + w.cacheImage);
+	                    	}
+	                    } else if(wallpaper instanceof ImageFileWallpaper) {
+	                    	ImageFileWallpaper w = (ImageFileWallpaper) wallpaper;
+	                   		track("ImageFile/portrait_" + w.portraitDifferent);
+	                   		track("ImageFile/rotate_" + w.rotate);
+	                   		track("ImageFile/fill_" + w.fill);
+	                    } else if(wallpaper instanceof SingleColorWallpaper) {
+	                    	SingleColorWallpaper w = (SingleColorWallpaper) wallpaper;
+	                   		track("SingleColor/" + w.color);
+	                    }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                     // TODO: what to do?

@@ -27,6 +27,7 @@ import com.ridgelineapps.wallpaper.WallpaperBase;
 public class SingleColorWallpaper extends WallpaperBase {
 
     public Paint background;
+    public String color;
 
     @Override
     public boolean doubleTap() {
@@ -49,7 +50,7 @@ public class SingleColorWallpaper extends WallpaperBase {
         super.init(width, height, longSide, shortSide, reload);
         
         SharedPreferences prefs = engine.getPrefs();
-        String color = prefs.getString("single_color", "Black");
+        color = prefs.getString("single_color", "Black");
         int[] rgb = Utils.getCommonColorRgb(color);
 
         background = Utils.createPaint(rgb[0], rgb[1], rgb[2]);
