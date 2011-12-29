@@ -38,9 +38,9 @@ public class PhotoSiteWallpaper extends WallpaperBase {
     // boolean fill;
     ImageLoader loader;
     boolean clearedImage = false;
-    Site site;
+    public Site site;
     Paint bitmapPaint;
-    boolean fill;
+    public boolean fill;
     public static final Site[] sites = new Site[] { new NationalGeographicSite(), new NationalGeographicWallSite(), /* new FiveHundredPxSite(), */ new FlickrSite(), new FlickrUserSite(), new TumblrSite() };
 
     public static final String CACHE_FILE_NAME = Environment.getExternalStorageDirectory().getAbsolutePath() + "/WallpaperForTablets/cached_image.png";
@@ -52,10 +52,10 @@ public class PhotoSiteWallpaper extends WallpaperBase {
     long lastChange = -1;
     long lastAttempt = -1;
     public static final long ONE_MIN = 1000L * 60; // one minute in milliseconds constant
-    long refreshInterval = 1440 * ONE_MIN; // default is one day
+    public long refreshInterval = 1440 * ONE_MIN; // default is one day
     long retryInterval = 60 * ONE_MIN; // default is one hour
 
-    boolean cacheImage = true;
+    public boolean cacheImage = true;
     boolean cacheChecked;
 
     public PhotoSiteWallpaper() {
