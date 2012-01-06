@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 
 /*
- * Copyright (C) 2011 Wallpaper for Tablets (http://code.google.com/p/wallpaper-for-tablets)
+ * Copyright (C) 2011-2012 Wallpaper for Tablets (http://code.google.com/p/wallpaper-for-tablets)
  * 
  * Wallpaper for Tablets is free software: you can redistribute it and/or 
  * modify it under the terms of the GNU General Public License as published 
@@ -25,10 +25,10 @@
 		default for preferences titles but don't see a way. -->
 	<TextView android:layout_width="fill_parent"
 		android:layout_height="fill_parent" android:gravity="left|center"
-		android:text="Select image..." android:paddingLeft="2mm"
-		android:textSize="22sp" android:textColor="#FFFF" android:id="@+id/title"
+		android:text="Select image" android:paddingLeft="10mm"
+		android:textSize="18sp" android:textColor="#FFFF" android:id="@+id/prefs_image_text"
 		android:layout_weight="4" />
 	<ImageView android:layout_width="15mm" android:layout_height="13mm"
-		android:paddingRight="2mm" android:id="@+id/prefs_image_view"
+		android:paddingRight="2mm" android:paddingTop="2mm" android:paddingBottom="2mm" android:id="@+id/prefs_image_view"
 		android:scaleType="centerInside" android:layout_weight="1" />
 </LinearLayout>  

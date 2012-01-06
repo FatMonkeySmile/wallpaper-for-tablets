@@ -32,35 +32,11 @@ import android.widget.ImageView;
 import com.ridgelineapps.wallpaper.R;
 import com.ridgelineapps.wallpaper.Utils;
 
-public class SelectPortraitImagePreference extends Preference {
+public class SelectPortraitImagePreference extends SelectImagePreference {
     ImageView imageView;
-
+    
     public SelectPortraitImagePreference(Context context, AttributeSet attrs) {
         super(context, attrs);
-    }
-
-    @Override
-    public void onBindView(View view) {
-        super.onBindView(view);
-        imageView = (ImageView) view.findViewById(R.id.prefs_image_view);
-        updateBackgroundImage();
-    }
-
-    //TODO: don't do any of this when image screensaver is not the screensaver...
-    void updateBackgroundImage() {
-        if (imageView != null) {
-            Bitmap bitmap = null;
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-            String imageURIString = prefs.getString("full_image_uri_portrait", null);
-            if (imageURIString != null) {
-                Uri imageURI = Uri.parse(imageURIString);
-                try {
-                    bitmap = Utils.loadBitmap(getContext(), imageURI, Math.max(128, imageView.getWidth()), Math.max(128, imageView.getHeight()), true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            imageView.setImageBitmap(bitmap);
-        }
+        prefKey = "portrait_full_image_uri";
     }
 }

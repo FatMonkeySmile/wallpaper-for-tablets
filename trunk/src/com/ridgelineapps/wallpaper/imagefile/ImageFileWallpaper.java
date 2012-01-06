@@ -159,7 +159,7 @@ public class ImageFileWallpaper extends WallpaperBase {
     @Override
     public void init(int width, int height, int longSide, int shortSide, boolean reload) {
         super.init(width, height, longSide, shortSide, reload);
-        
+
         if(blackoutOnMove) {
             drawInterval = 250;
         }
@@ -182,7 +182,7 @@ public class ImageFileWallpaper extends WallpaperBase {
                 try {
                     // image = Utils.scaledBitmapFromURIWithMinimumSize(engine.getBaseContext(),
                     // Uri.parse(fileUri), width, height, false);
-                    image = Utils.loadBitmap(engine.getBaseContext(), Uri.parse(fileUri), width, height, fill);
+                    image = Utils.loadBitmap(engine.getBaseContext(), Uri.parse(fileUri), width, height, fill, rotate);
 
                 } catch (Exception e) {
                     // TODO: don't try to load again...
@@ -199,7 +199,7 @@ public class ImageFileWallpaper extends WallpaperBase {
 
                 if (!fileUriPortrait.trim().equals("")) {
                     try {
-                        imagePortrait = Utils.loadBitmap(engine.getBaseContext(), Uri.parse(fileUriPortrait), width, height, fill);
+                        imagePortrait = Utils.loadBitmap(engine.getBaseContext(), Uri.parse(fileUriPortrait), width, height, fill, rotate);
 
                     } catch (Exception e) {
                         // TODO: don't try to load again...
@@ -219,6 +219,9 @@ public class ImageFileWallpaper extends WallpaperBase {
         if (imagePortrait != null && image != imagePortrait) {
             imagePortrait.recycle();
         }
+        
+        image = null;
+        imagePortrait = null;
         
         // TODO: clean up resources like paints?
     }

@@ -38,13 +38,11 @@ public class PrefsImageFile extends PrefsFragmentBase {
     private String selectedImagePath;
     private String filemanagerstring;
     
-    boolean portrait;
-
     //TODO: reset button -- changes images to [not set]
-    Preference selectImagePref;
-    Preference selectPortraitImagePref;
-//    SelectImagePreference selectImagePref;
-//    SelectPortraitImagePreference selectPortraitImagePref;
+//    Preference selectImagePref;
+//    Preference selectPortraitImagePref;
+    SelectImagePreference selectImagePref;
+    SelectPortraitImagePreference selectPortraitImagePref;
 
     @Override
     public String getWallpaperName() {
@@ -71,26 +69,7 @@ public class PrefsImageFile extends PrefsFragmentBase {
         super.onCreate(savedInstanceState);
 
         //TODO: is it the wrong type of preference?  preference screen?
-        selectImagePref = findPreference("full_image_uri");
-        selectImagePref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            public boolean onPreferenceClick(Preference preference) {
-                portrait = false;
-                selectBackgroundImage();
-                return true;
-            }
-        });
-        
-        selectPortraitImagePref = findPreference("portrait_full_image_uri");
-        selectPortraitImagePref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            public boolean onPreferenceClick(Preference preference) {
-                portrait = false;
-                //TODO: rename all backgrounds to (?)
-                selectPortraitBackgroundImage();
-                return true;
-            }
-        });
-        
-//        selectImagePref = (SelectImagePreference) findPreference("image_file");
+//        selectImagePref = findPreference("full_image_uri");
 //        selectImagePref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 //            public boolean onPreferenceClick(Preference preference) {
 //                portrait = false;
@@ -99,14 +78,31 @@ public class PrefsImageFile extends PrefsFragmentBase {
 //            }
 //        });
 //        
-//        selectPortraitImagePref = (SelectPortraitImagePreference) findPreference("image_file_portrait");
+//        selectPortraitImagePref = findPreference("portrait_full_image_uri");
 //        selectPortraitImagePref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 //            public boolean onPreferenceClick(Preference preference) {
-//                portrait = true;
-//                selectBackgroundImage();
+//                portrait = false;
+//                //TODO: rename all backgrounds to (?)
+//                selectPortraitBackgroundImage();
 //                return true;
 //            }
 //        });
+        
+        selectImagePref = (SelectImagePreference) findPreference("image_file");
+        selectImagePref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            public boolean onPreferenceClick(Preference preference) {
+                selectBackgroundImage();
+                return true;
+            }
+        });
+        
+        selectPortraitImagePref = (SelectPortraitImagePreference) findPreference("image_file_portrait");
+        selectPortraitImagePref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            public boolean onPreferenceClick(Preference preference) {
+                selectPortraitBackgroundImage();
+                return true;
+            }
+        });
     }
 
     void selectBackgroundImage() {
@@ -129,6 +125,17 @@ public class PrefsImageFile extends PrefsFragmentBase {
         // Intent.ACTION_PICK,
         // android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         // startActivityForResult(i, ACTIVITY_SELECT_IMAGE);
+    }
+    
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences shared, String key) {
+    	super.onSharedPreferenceChanged(shared, key);
+    	if(key.equals("portrait_image_set")) {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("portrait_full_image_uri", "");
+            editor.commit();
+    	}
     }
     
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -156,11 +163,11 @@ public class PrefsImageFile extends PrefsFragmentBase {
                 // CheckBoxPreference useImagePref = (CheckBoxPreference)
                 // findPreference("useBackgroundImage");
                 // useImagePref.setChecked(true);
-//                if(portrait) {
-//                    selectPortraitImagePref.updateBackgroundImage();
-//                } else {
-//                    selectImagePref.updateBackgroundImage();
-//                }
+                if(requestCode == SELECT_PORTRAIT_IMAGE) {
+                    selectPortraitImagePref.updateBackgroundImage(null);
+                } else {
+                    selectImagePref.updateBackgroundImage(null);
+                }
             }
         }
     }

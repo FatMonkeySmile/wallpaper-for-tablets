@@ -159,6 +159,7 @@ public class Utils {
             options.inPreferQualityOverSpeed = true;
 //            options.inDither = true;
             options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+            //TODO: use scale like we do loading from file
             
             Bitmap bitmap = BitmapFactory.decodeStream(in, null, options);
             in.close();
@@ -215,11 +216,11 @@ public class Utils {
     }
     
     
-    public static Bitmap loadBitmap(Context context, Uri imageURI, int width, int height, boolean fill) throws FileNotFoundException {
+    public static Bitmap loadBitmap(Context context, Uri imageURI, int width, int height, boolean fill, boolean rotateIfNecessary) throws FileNotFoundException {
         BitmapFactory.Options o = new BitmapFactory.Options();
         o.inJustDecodeBounds = true;
         InputStream is = context.getContentResolver().openInputStream(imageURI);
-        BitmapFactory.decodeStream(is, null, o);
+        Bitmap bmp = BitmapFactory.decodeStream(is, null, o);
         try {
             is.close();
         } catch (Exception e) {
@@ -227,10 +228,13 @@ public class Utils {
             e.printStackTrace();
         }
         
+        int imageWidth = o.outWidth;
+        int imageHeight = o.outHeight;
+        
         int longSide = Math.max(width, height);
-        int imageLongSide = Math.max(o.outWidth, o.outHeight);
-//        int shortSide = Math.min(width, height);
-        int imageShortSide = Math.min(o.outWidth, o.outHeight);
+    	int imageLongSide = Math.max(o.outWidth, o.outHeight);
+        int shortSide = Math.min(width, height);
+        int imageShortSide = o.outHeight;
          
         int scale=1;
         // Option 1
@@ -239,35 +243,48 @@ public class Utils {
 //        }
         // Option 2
         while(true) {
-        	// We check both short and long since image may be rotated now...
-        	if(imageLongSide / 2 < longSide) {
-        		break;
+        	if(rotateIfNecessary) {
+	        	if(imageLongSide / 2 < longSide) {
+	        		break;
+	        	}
+	        	
+	        	if(imageShortSide / 2 < shortSide) {
+	        		break;
+	        	}
         	}
-        	
-        	if(imageShortSide / 2 < longSide) {
-        		break;
+        	else {
+	        	if(imageWidth / 2 < width) {
+	        		break;
+	        	}
+	        	
+	        	if(imageHeight / 2 < height) {
+	        		break;
+	        	}
         	}
-        	
-//            if (fill) {
-//                if(imageShortSide / 2 < longSide)
-//                    break;
-//            }
-//            else {
-//                if(imageLongSide / 2 < longSide)
-//                    break;
-//            }
-            imageLongSide /= 2;
-            imageShortSide /= 2;
+
+        	imageLongSide /= 2;
+        	imageShortSide /= 2;
+        	imageWidth /= 2;
+        	imageHeight /= 2;
             scale *= 2;
         }
 
         // Decode with inSampleSize
         BitmapFactory.Options o2 = new BitmapFactory.Options();
         o2.inSampleSize = scale;
+        o2.inPreferQualityOverSpeed = true;
+        o2.inPurgeable = true;
+        o2.inInputShareable = false;
 
         // TODO: dont' load stream twice?
         is = context.getContentResolver().openInputStream(imageURI);
-        Bitmap bmp = BitmapFactory.decodeStream(is, null, o2);
+        if(bmp != null) {
+        	bmp.recycle();
+        }
+        
+        System.out.println("s:" + scale + " o:" + o.outWidth + ", " + o.outHeight + " **************************** decoding:" + imageURI);
+        
+        bmp = BitmapFactory.decodeStream(is, null, o2);
         try {
             is.close();
         } catch (Exception e) {
