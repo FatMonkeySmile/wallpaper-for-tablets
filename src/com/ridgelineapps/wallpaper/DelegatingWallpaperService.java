@@ -182,7 +182,7 @@ public class DelegatingWallpaperService extends WallpaperService {
         }
 
         public void cleanupWallpaper() {
-        	System.out.println("::cleanup:" + this + ", wp:" + wallpaper);
+//        	System.out.println("::cleanup:" + this + ", wp:" + wallpaper);
             if (wallpaper != null) {
                 try {
                     oldWallpaper = wallpaper;
@@ -196,7 +196,7 @@ public class DelegatingWallpaperService extends WallpaperService {
 
         @SuppressWarnings("rawtypes")
         public synchronized void refreshWallpaper(boolean reload) {
-        	System.out.println("::refresh:" + this);
+//        	System.out.println("::refresh:" + this);
         	
             // TODO: how often to get these? is there way to only set them when changed easily?
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
@@ -289,7 +289,7 @@ public class DelegatingWallpaperService extends WallpaperService {
                 try {
                     wallpaper = (WallpaperBase) c.newInstance();
                     wallpaper.engine = this;
-                    System.out.println("calling init for:" + wallpaper);
+//                    System.out.println("calling init for:" + wallpaper);
                     wallpaper.init(width, height, longSide, shortSide, true);
 
                     // TODO: only randomize if needed
