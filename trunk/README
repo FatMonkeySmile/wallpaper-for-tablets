@@ -27,4 +27,6 @@ Removed "Bugs" wallpaper type -- moving it to a separate live wallpaper
 Various small bug fixes and enhancements
 
 0.3
-New icon
+Added google analytics to track feature use
+Fixed memory leak when wallpaper is unloaded
+Changed image file preference to show image thumbnail
