@@ -38,7 +38,7 @@ public class SelectImagePreference extends Preference {
     ImageView imageView;
     //TODO: use attr for this
     String prefKey = "full_image_uri";
-    Bitmap oldBitmap = null;
+    //Bitmap oldBitmap = null;
 
     public SelectImagePreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -83,10 +83,10 @@ public class SelectImagePreference extends Preference {
 	                    bitmap = Utils.loadBitmap(getContext(), imageURI, Math.max(128, imageView.getWidth()), Math.max(128, imageView.getHeight()), true, false);
 	    	            if(bitmap != null) {
 	    	            	imageView.setImageBitmap(bitmap);
-	    	            	if(oldBitmap != null) {
-	    	            		oldBitmap.recycle();
-	    	            		oldBitmap = bitmap;
-	    	            	}
+//	    	            	if(oldBitmap != null) {
+//	    	            		oldBitmap.recycle();
+//	    	            		oldBitmap = bitmap;
+//	    	            	}
 	    	            }
 	                } catch (Exception e) {
 	                    e.printStackTrace();
@@ -94,10 +94,10 @@ public class SelectImagePreference extends Preference {
 	            }
         	}
         	
-        	if(bitmap == null && oldBitmap != null) {
-        		oldBitmap.recycle();
-        		oldBitmap = null;
-        	}
+//        	if(bitmap == null && oldBitmap != null) {
+//        		oldBitmap.recycle();
+//        		oldBitmap = null;
+//        	}
         }
     }
 }
