@@ -39,16 +39,16 @@
                 android:defaultValue="false"
                android:summary="Automatically rotate the image so the long side of the image lines up with the long side of the screen" />
                
+<!-- 
 		<PreferenceScreen 
 			android:key="full_image_uri" android:title="Image"
 			android:summary="[not set]">
 		</PreferenceScreen>
+-->
 
-<!-- 
 		<com.ridgelineapps.wallpaper.preferences.SelectImagePreference
 			android:key="image_file" android:title="Select image..."
 			android:layout="@layout/image_preference" />
-			-->
 
 		<!-- <EditTextPreference android:key="image_file" android:title="Select 
 			image..." /> -->
@@ -59,11 +59,15 @@
 		<!-- <EditTextPreference android:key="image_file_portrait" android:title="Select 
 			image..." android:dependency="portrait_image_set" android:layout="?android:attr/preferenceLayoutChild" 
 			/> -->
-<!-- 
+
 		<com.ridgelineapps.wallpaper.preferences.SelectPortraitImagePreference
-			android:key="image_file_portrait" android:title="Select image..."
-			android:layout="@layout/image_preference" />
-			 -->
+			android:key="image_file_portrait" 
+			android:title="Select image..."
+			android:layout="@layout/image_preference" 
+			android:dependency="portrait_image_set"
+			/>
+
+<!-- 
 		<PreferenceScreen 
 			android:key="portrait_full_image_uri" 
 			android:title="Portrait Image" 
@@ -71,6 +75,7 @@
 			android:layout="?android:attr/preferenceLayoutChild"
 			android:summary="[not set]">
 		</PreferenceScreen>
+			 -->
 
 			
 	</PreferenceCategory>

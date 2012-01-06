@@ -80,7 +80,7 @@ public class DelegatingWallpaperService extends WallpaperService {
         private boolean visible = true;
         private boolean touchEnabled = true;
 
-        boolean firstDraw = true;
+//        boolean firstDraw = true;
 
         public Paint background;
 
@@ -96,7 +96,7 @@ public class DelegatingWallpaperService extends WallpaperService {
             
             try {
                 tracker = GoogleAnalyticsTracker.getInstance();
-                tracker.startNewSession("UA-28005805-1", 60 * 60, getBaseContext()); // Dispatch interval is once an hour
+                tracker.startNewSession("UA-28005805-1", 60, getBaseContext()); // Dispatch interval is once a minute
             }
             catch(Exception e) {
             	e.printStackTrace();
@@ -177,10 +177,12 @@ public class DelegatingWallpaperService extends WallpaperService {
         public void onSurfaceDestroyed(SurfaceHolder holder) {
             super.onSurfaceDestroyed(holder);
             this.visible = false;
+            cleanupWallpaper();
             handler.removeCallbacks(drawRunner);
         }
 
         public void cleanupWallpaper() {
+        	System.out.println("::cleanup:" + this + ", wp:" + wallpaper);
             if (wallpaper != null) {
                 try {
                     oldWallpaper = wallpaper;
@@ -194,6 +196,8 @@ public class DelegatingWallpaperService extends WallpaperService {
 
         @SuppressWarnings("rawtypes")
         public synchronized void refreshWallpaper(boolean reload) {
+        	System.out.println("::refresh:" + this);
+        	
             // TODO: how often to get these? is there way to only set them when changed easily?
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
             String wallpaperType = prefs.getString("wp_type", "SingleColor");
@@ -334,7 +338,8 @@ public class DelegatingWallpaperService extends WallpaperService {
                 longSide = Math.max(width, height);
                 shortSide = Math.min(width, height);
 
-                firstDraw = true;
+//                drawAsap();
+//                firstDraw = true;
                 // TODO: don't refresh, just update
                 refreshWallpaper(false);
             }
