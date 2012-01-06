@@ -282,7 +282,7 @@ public class Utils {
         	bmp.recycle();
         }
         
-        System.out.println("s:" + scale + " o:" + o.outWidth + ", " + o.outHeight + " **************************** decoding:" + imageURI);
+//        System.out.println("s:" + scale + " o:" + o.outWidth + ", " + o.outHeight + " **************************** decoding:" + imageURI);
         
         bmp = BitmapFactory.decodeStream(is, null, o2);
         try {
