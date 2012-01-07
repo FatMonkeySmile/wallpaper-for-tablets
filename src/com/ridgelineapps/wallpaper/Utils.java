@@ -273,14 +273,14 @@ public class Utils {
         BitmapFactory.Options o2 = new BitmapFactory.Options();
         o2.inSampleSize = scale;
         o2.inPreferQualityOverSpeed = true;
-        o2.inPurgeable = true;
-        o2.inInputShareable = false;
+//        o2.inPurgeable = true;
+//        o2.inInputShareable = false;
 
-        // TODO: dont' load stream twice?
+        // TODO: don't load stream twice?
         is = context.getContentResolver().openInputStream(imageURI);
-        if(bmp != null) {
-        	bmp.recycle();
-        }
+//        if(bmp != null) {
+//        	bmp.recycle();
+//        }
         
 //        System.out.println("s:" + scale + " o:" + o.outWidth + ", " + o.outHeight + " **************************** decoding:" + imageURI);
         
