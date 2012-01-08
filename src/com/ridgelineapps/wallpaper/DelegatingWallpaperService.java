@@ -31,7 +31,6 @@ import android.service.wallpaper.WallpaperService;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 
-import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 import com.ridgelineapps.wallpaper.imagefile.ImageFileWallpaper;
 import com.ridgelineapps.wallpaper.patterns.CirclesInCircles;
 import com.ridgelineapps.wallpaper.patterns.Dots;
@@ -84,7 +83,7 @@ public class DelegatingWallpaperService extends WallpaperService {
 
         public Paint background;
 
-        GoogleAnalyticsTracker tracker;
+//        GoogleAnalyticsTracker tracker;
         
 
         public SimpleWallpaperEngine() {
@@ -94,13 +93,13 @@ public class DelegatingWallpaperService extends WallpaperService {
             SharedPreferences prefs = getPrefs();
             prefs.registerOnSharedPreferenceChangeListener(this);
             
-            try {
-                tracker = GoogleAnalyticsTracker.getInstance();
-                tracker.startNewSession("UA-28005805-1", 60, getBaseContext()); // Dispatch interval is once a minute
-            }
-            catch(Exception e) {
-            	e.printStackTrace();
-            }
+//            try {
+//                tracker = GoogleAnalyticsTracker.getInstance();
+//                tracker.startNewSession("UA-28005805-1", 60, getBaseContext()); // Dispatch interval is once a minute
+//            }
+//            catch(Exception e) {
+//            	e.printStackTrace();
+//            }
         }
 
         public Context getBaseContext() {
@@ -108,16 +107,16 @@ public class DelegatingWallpaperService extends WallpaperService {
         }
         
         public void track(String s) {
-            if(tracker != null) {
-            	try {
-            		if(!s.startsWith("/")) {
-            			s = "/" + s;
-            		}
-            		tracker.trackPageView(s);
-            	} catch(Exception e) {
-            		e.printStackTrace();
-            	}
-            }
+//            if(tracker != null) {
+//            	try {
+//            		if(!s.startsWith("/")) {
+//            			s = "/" + s;
+//            		}
+//            		tracker.trackPageView(s);
+//            	} catch(Exception e) {
+//            		e.printStackTrace();
+//            	}
+//            }
         }
 
         public synchronized void onSharedPreferenceChanged(SharedPreferences shared, String key) {

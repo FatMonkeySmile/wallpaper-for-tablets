@@ -67,6 +67,7 @@
 			android:dependency="portrait_image_set"
 			/>
 
+
 <!-- 
 		<PreferenceScreen 
 			android:key="portrait_full_image_uri" 
@@ -76,6 +77,12 @@
 			android:summary="[not set]">
 		</PreferenceScreen>
 			 -->
+
+
+	<PreferenceScreen android:title="Just using the image file wallpaper?" android:summary="There is a simpler version just for images, found here: https://market.android.com/details?id=com.ridgelineapps.simpleimagewallpaper">
+		<intent android:action="android.intent.action.VIEW"
+			android:data="https://market.android.com/details?id=com.ridgelineapps.simpleimagewallpaper" />
+	</PreferenceScreen>
 
 			
 	</PreferenceCategory>

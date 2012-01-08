@@ -273,24 +273,41 @@ public class Utils {
         BitmapFactory.Options o2 = new BitmapFactory.Options();
         o2.inSampleSize = scale;
         o2.inPreferQualityOverSpeed = true;
-//        o2.inPurgeable = true;
-//        o2.inInputShareable = false;
+        o2.inPurgeable = true;
+        o2.inInputShareable = false;
 
-        // TODO: don't load stream twice?
-        is = context.getContentResolver().openInputStream(imageURI);
-//        if(bmp != null) {
-//        	bmp.recycle();
-//        }
-        
-//        System.out.println("s:" + scale + " o:" + o.outWidth + ", " + o.outHeight + " **************************** decoding:" + imageURI);
-        
-        bmp = BitmapFactory.decodeStream(is, null, o2);
-        try {
-            is.close();
-        } catch (Exception e) {
-            // TODO: put all in logs
-            e.printStackTrace();
+        int retries = 0;
+        boolean success = false;
+        while(!success && retries < 3) {
+            try {
+                // TODO: don't load stream twice?
+                is = context.getContentResolver().openInputStream(imageURI);
+        //        if(bmp != null) {
+        //          bmp.recycle();
+        //        }
+                
+        //        System.out.println("s:" + scale + " o:" + o.outWidth + ", " + o.outHeight + " **************************** decoding:" + imageURI);
+                
+                bmp = BitmapFactory.decodeStream(is, null, o2);
+                success = true;
+            }
+            catch(OutOfMemoryError e) {
+                e.printStackTrace();
+                scale *= 2;
+                o2.inSampleSize = scale; 
+                retries++;
+            }
+            finally
+            {
+                try {
+                    is.close();
+                } catch (Exception e) {
+                    // TODO: put all in logs
+                    e.printStackTrace();
+                }
+            }
         }
+        
         return bmp;
     }
 
