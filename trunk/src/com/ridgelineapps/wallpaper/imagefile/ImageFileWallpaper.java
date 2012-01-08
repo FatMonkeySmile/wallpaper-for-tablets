@@ -129,7 +129,7 @@ public class ImageFileWallpaper extends WallpaperBase {
 //                      canvas.rotate(90, centerX, centerY);
                         canvas.rotate(90);
 
-                        y = -rHeight;
+                        y = -rHeight + ((rHeight - destHeight) / 2);
                         x = (rWidth - destWidth) / 2;
                         dest = new Rect(x, y, x + destWidth, y + destHeight);
                         canvas.drawBitmap(bmp, null, dest, bitmapPaint);

@@ -27,6 +27,6 @@ Removed "Bugs" wallpaper type -- moving it to a separate live wallpaper
 Various small bug fixes and enhancements
 
 0.3
-Added google analytics to track feature use
+Created simpler version just for images -- https://market.android.com/details?id=com.ridgelineapps.simpleimagewallpaper
 Fixed memory leak when wallpaper is unloaded
 Changed image file preference to show image thumbnail
