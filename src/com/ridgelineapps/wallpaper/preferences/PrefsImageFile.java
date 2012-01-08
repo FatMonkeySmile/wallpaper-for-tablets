@@ -131,10 +131,13 @@ public class PrefsImageFile extends PrefsFragmentBase {
     public void onSharedPreferenceChanged(SharedPreferences shared, String key) {
     	super.onSharedPreferenceChanged(shared, key);
     	if(key.equals("portrait_image_set")) {
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putString("portrait_full_image_uri", "");
-            editor.commit();
+    	    Activity activity = getActivity();
+    	    if(activity != null) {
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity.getBaseContext());
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putString("portrait_full_image_uri", "");
+                editor.commit();
+    	    }
     	}
     }
     
