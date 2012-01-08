@@ -182,6 +182,7 @@ public class ImageFileWallpaper extends WallpaperBase {
                 try {
                     // image = Utils.scaledBitmapFromURIWithMinimumSize(engine.getBaseContext(),
                     // Uri.parse(fileUri), width, height, false);
+                    image = null;
                     image = Utils.loadBitmap(engine.getBaseContext(), Uri.parse(fileUri), width, height, fill, rotate);
 
                 } catch (Exception e) {
@@ -199,6 +200,7 @@ public class ImageFileWallpaper extends WallpaperBase {
 
                 if (!fileUriPortrait.trim().equals("")) {
                     try {
+                        imagePortrait = null;
                         imagePortrait = Utils.loadBitmap(engine.getBaseContext(), Uri.parse(fileUriPortrait), width, height, fill, rotate);
 
                     } catch (Exception e) {
