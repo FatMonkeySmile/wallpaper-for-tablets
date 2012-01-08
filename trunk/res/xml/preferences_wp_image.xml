@@ -79,7 +79,7 @@
 			 -->
 
 
-	<PreferenceScreen android:title="Just using the image file wallpaper?" android:summary="There is a simpler version just for images, found here: https://market.android.com/details?id=com.ridgelineapps.simpleimagewallpaper">
+	<PreferenceScreen android:title="Just using the image file wallpaper?" android:summary="Tap here for a simpler version of this wallpaper, just for image files - https://market.android.com/details?id=com.ridgelineapps.simpleimagewallpaper">
 		<intent android:action="android.intent.action.VIEW"
 			android:data="https://market.android.com/details?id=com.ridgelineapps.simpleimagewallpaper" />
 	</PreferenceScreen>
