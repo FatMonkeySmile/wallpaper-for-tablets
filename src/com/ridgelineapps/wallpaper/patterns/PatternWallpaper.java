@@ -39,7 +39,7 @@ public class PatternWallpaper extends WallpaperBase {
     protected ArrayList<Shape> shapes = new ArrayList<Shape>();
 
     public PatternWallpaper() {
-        drawInterval = 500;
+        //drawInterval = 500;
         allowsBlackout = true;
     }
 
@@ -108,6 +108,14 @@ public class PatternWallpaper extends WallpaperBase {
 
         // TODO: have "draw once" concept be part of base
         drawPaused = true;
+        
+        if(blackout) {
+        	drawInterval = 250;
+        }
+        else {
+        	drawInterval = -1;
+        }
+
     }
 
     public Paint getBackground() {
