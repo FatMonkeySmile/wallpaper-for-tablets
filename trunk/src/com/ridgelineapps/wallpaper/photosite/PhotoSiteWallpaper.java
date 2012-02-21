@@ -104,6 +104,11 @@ public class PhotoSiteWallpaper extends WallpaperBase {
                 }
             } finally {
                 drawPaused = true; // imageDrawn = true;
+                if(blackout) {
+                	drawInterval = 250;
+                } else {
+                	drawInterval = -1;
+                }
             }
         }
     }
@@ -163,6 +168,7 @@ public class PhotoSiteWallpaper extends WallpaperBase {
         image = null;
         clearedImage = false;
         drawPaused = false;
+        engine.drawAsap();
     }
     
     // TODO: Check that we are not painting more than once or listeneing to any
@@ -181,7 +187,6 @@ public class PhotoSiteWallpaper extends WallpaperBase {
         }
         drawPaused = false;
 
-        drawInterval = 250;
         if (reload) {
             SharedPreferences prefs = engine.getPrefs();
             // TODO: figure out int prefs instead of strings...
@@ -289,6 +294,7 @@ public class PhotoSiteWallpaper extends WallpaperBase {
                 image = null;
                 clearedImage = false;
                 drawPaused = false;
+                engine.drawAsap();
             }
 
             if (loader != null) {
@@ -392,8 +398,9 @@ public class PhotoSiteWallpaper extends WallpaperBase {
                     Bitmap bmp = Utils.downloadBitmap(img);
                     if (bmp != null && !kill) {
                         image = bmp;
-                        drawPaused = false;
                         saveImageToCache();
+                        drawPaused = false;
+                        engine.drawAsap();
                         // imageDrawn = false;
                     }
                 }

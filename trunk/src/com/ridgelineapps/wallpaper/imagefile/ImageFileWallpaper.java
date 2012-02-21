@@ -152,6 +152,12 @@ public class ImageFileWallpaper extends WallpaperBase {
         }
         finally {
             drawPaused = true;
+            if(blackout) {
+            	drawInterval = 250;
+            }
+            else {
+            	drawInterval = -1;
+            }
         }
     }
 
@@ -160,12 +166,12 @@ public class ImageFileWallpaper extends WallpaperBase {
     public void init(int width, int height, int longSide, int shortSide, boolean reload) {
         super.init(width, height, longSide, shortSide, reload);
 
-        if(blackoutOnMove) {
-            drawInterval = 250;
-        }
-        else {
-            drawInterval = 0;
-        }
+//        if(blackoutOnMove) {
+//            drawInterval = 250;
+//        }
+//        else {
+//            drawInterval = -1;
+//        }
 
         bitmapPaint = new Paint();
         bitmapPaint.setFilterBitmap(true);

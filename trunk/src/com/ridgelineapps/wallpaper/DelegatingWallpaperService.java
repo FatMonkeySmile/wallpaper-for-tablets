@@ -49,8 +49,8 @@ public class DelegatingWallpaperService extends WallpaperService {
     public Engine onCreateEngine() {
         return new SimpleWallpaperEngine();
     }
-
-    public class SimpleWallpaperEngine extends Engine implements SharedPreferences.OnSharedPreferenceChangeListener {
+    
+	public class SimpleWallpaperEngine extends Engine implements SharedPreferences.OnSharedPreferenceChangeListener {
 
         private final Handler handler = new Handler();
         private final Runnable drawRunner = new Runnable() {
@@ -174,11 +174,24 @@ public class DelegatingWallpaperService extends WallpaperService {
 
         @Override
         public void onSurfaceDestroyed(SurfaceHolder holder) {
+        	System.out.println("Wallpaper for Tablets: onSurfaceDestroyed()");
             super.onSurfaceDestroyed(holder);
             this.visible = false;
             cleanupWallpaper();
-            handler.removeCallbacks(drawRunner);
+           	handler.removeCallbacks(drawRunner);
         }
+        
+        @Override
+		public void onDestroy() {
+        	System.out.println("Wallpaper for Tablets: onDestroy()");
+			super.onDestroy();
+            this.visible = false;
+            cleanupWallpaper();
+           	handler.removeCallbacks(drawRunner);
+            SharedPreferences prefs = getPrefs();
+            if(prefs != null)
+            	prefs.unregisterOnSharedPreferenceChangeListener(this);
+		}
 
         public void cleanupWallpaper() {
 //        	System.out.println("::cleanup:" + this + ", wp:" + wallpaper);
@@ -187,6 +200,7 @@ public class DelegatingWallpaperService extends WallpaperService {
                     oldWallpaper = wallpaper;
                     wallpaper = null;
                     oldWallpaper.cleanup();
+                    oldWallpaper.engine = null;
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
