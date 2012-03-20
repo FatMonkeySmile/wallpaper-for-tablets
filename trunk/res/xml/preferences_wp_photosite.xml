@@ -130,6 +130,12 @@
 			android:summary="[not set]"
             android:dialogTitle="Tumblr account name"
              />
+
+		<CheckBoxPreference 
+			android:key="site_500px"  
+			android:defaultValue="false"
+			android:title="500px" />
+             
 	</PreferenceCategory>
 			
 </PreferenceScreen>
