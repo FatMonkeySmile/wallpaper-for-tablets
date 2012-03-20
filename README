@@ -14,6 +14,7 @@ As stated in individual files, this program uses open-source code from the follo
 Google Inc. (Apache License 2.0)
 http://code.google.com/p/dodge-android/ (GNU GPL v3)
 App icon derived from a version created by schollidesign (LGPL)
+JSON in Java (see http://www.json.org/java) 
 
 CHANGES
 0.1
