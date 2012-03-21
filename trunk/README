@@ -31,3 +31,10 @@ Various small bug fixes and enhancements
 Created simpler version just for images -- https://market.android.com/details?id=com.ridgelineapps.simpleimagewallpaper
 Fixed memory leak when wallpaper is unloaded
 Changed image file preference to show image thumbnail
+
+0.4
+Performance fixes
+
+1.0
+Removed National Geographic photosites
+Added 500px as a photosite

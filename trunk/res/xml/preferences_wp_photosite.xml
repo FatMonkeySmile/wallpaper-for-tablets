@@ -26,24 +26,6 @@
 			android:defaultValue="false"
 			android:title="@string/set_as_wallpaper" />
 		 -->
-		<!--  TODO: do this in other (image file) wp -->
-		<!-- 
-		<CheckBoxPreference 
-			android:key="photosite_shadow_on_touch"  
-			android:defaultValue="false" 
-			android:title="Shadow when touching screen" />
-
-		<ListPreference
-			android:layout="?android:attr/preferenceLayoutChild"
-			android:key="photosite_shadow_duration" 
-			android:title="Shadow duration" 
-			android:dependency="photosite_shadow_on_touch" 
-			android:summary="[not set]"
-            android:entries="@array/shadow_duration_entries"
-            android:entryValues="@array/shadow_duration_values"
-            android:dialogTitle="Duration"
-            android:defaultValue="2" />
-             -->
 		<ListPreference
 			android:key="photosite_refresh_interval" 
 			android:title="Refresh rate" 
@@ -66,21 +48,13 @@
                 android:defaultValue="true"
                 android:summary="Image will be cropped as necessary to fill the screen both horizontally and vertically" />
 			 -->
-			
-            <!-- 
-		<CheckBoxPreference 
-			android:key="photosite_random"  
-			android:defaultValue="false"
-			android:title="Random photo on double-tap" 
-			android:summary="Load a random photo from the chosen site on double-tap" />
-			 -->
-            
 		/>
 	</PreferenceCategory>
 	 	
 	<PreferenceCategory android:title="Site">
 
-		<CheckBoxPreference 
+	<!-- 
+	    <CheckBoxPreference 
 			android:key="site_national_geographic"  
 			android:defaultValue="true"
 			android:title="National Geographic Photo of the Day" />
@@ -89,15 +63,7 @@
 			android:key="site_national_geographic_wall"  
 			android:defaultValue="false"
 			android:title="National Geographic Wallpapers" />
-
-
-	<!-- 		
-		
-		<CheckBoxPreference 
-			android:key="site_500px"  
-			android:defaultValue="false"
-			android:title="500px Popular" />
-						 -->
+	 -->
 			
 		<CheckBoxPreference 
 			android:key="site_flickr"  
