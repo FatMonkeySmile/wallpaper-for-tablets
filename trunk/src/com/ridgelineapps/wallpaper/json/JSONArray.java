@@ -1,4 +1,4 @@
-package org.json;
+package com.ridgelineapps.wallpaper.json;
 
 /*
 Copyright (c) 2002 JSON.org

@@ -32,7 +32,21 @@
 
 package com.ridgelineapps.wallpaper.photosite;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.security.SecureRandom;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
+
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
@@ -49,12 +63,12 @@ import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import android.net.Uri;
 
 import com.ridgelineapps.wallpaper.Rand;
+import com.ridgelineapps.wallpaper.json.JSONArray;
+import com.ridgelineapps.wallpaper.json.JSONObject;
 
 public class FiveHundredPxUtils {
    public static final String API_REST_HOST = "api.500px.com";
@@ -73,10 +87,14 @@ public class FiveHundredPxUtils {
       HttpProtocolParams.setContentCharset(params, "UTF-8");
 
       final SchemeRegistry registry = new SchemeRegistry();
-      registry.register(new Scheme("https", PlainSocketFactory.getSocketFactory(), 443));
-
-      final ThreadSafeClientConnManager manager = new ThreadSafeClientConnManager(params, registry);
-
+      try {
+          registry.register (new Scheme ("http", PlainSocketFactory.getSocketFactory (), 80));
+          registry.register (new Scheme ("https", new CustomSSLSocketFactory(), 443));
+      }
+      catch(Exception e) {
+          e.printStackTrace();
+      }
+     final ThreadSafeClientConnManager manager = new ThreadSafeClientConnManager(params, registry);
       mClient = new DefaultHttpClient(manager, params);
    }
 
@@ -92,14 +110,17 @@ public class FiveHundredPxUtils {
          uri.appendQueryParameter("exclude", "Nude");
    
          HttpGet get = new HttpGet(uri.build().toString());
+         
          HttpHost host = new HttpHost(API_REST_HOST, 443, "https");
          HttpResponse response = mClient.execute(host, get);
+         
          if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
             entity1 = response.getEntity();
-            InputStream in = entity1.getContent();
+            InputStream in = entity1.getContent(); 
             int totalPages = 1;
-
-            JSONObject json = new JSONObject(in);
+ 
+            JSONObject json = new JSONObject(toString(in));
+            
             if (json != null && json.has("photos")) {
 
                if (json.has("total_items")) {
@@ -121,7 +142,7 @@ public class FiveHundredPxUtils {
                if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
                   entity2 = response.getEntity();
                   in = entity2.getContent();
-                  JSONObject json2 = new JSONObject(in);
+                  JSONObject json2 = new JSONObject(toString(in));
                   if (json2 != null && json2.has("photos")) {
 
                      JSONArray photos = (JSONArray) json.get("photos");
@@ -157,7 +178,6 @@ public class FiveHundredPxUtils {
             // Ignore...
          }
       }
-      
       return null;
    }
 
@@ -166,4 +186,62 @@ public class FiveHundredPxUtils {
       builder.path(API_REST_URL + resource).appendQueryParameter("consumer_key", CONSUMER_KEY);
       return builder;
    }
+   
+   private static String toString(InputStream is) throws Exception {
+       final char[] buffer = new char[0x10000];
+       StringBuilder out = new StringBuilder();
+       Reader in = new InputStreamReader(is, "UTF-8");
+       int read;
+       do {
+         read = in.read(buffer, 0, buffer.length);
+         if (read>0) {
+           out.append(buffer, 0, read);
+         }
+       } while (read>=0);
+       String result = out.toString();
+       
+       is.close();
+       
+       return result;
+   }
+   
+    class CustomSSLSocketFactory extends org.apache.http.conn.ssl.SSLSocketFactory {
+        private SSLSocketFactory FACTORY = HttpsURLConnection.getDefaultSSLSocketFactory();
+
+        public CustomSSLSocketFactory() throws Exception {
+            super(null);
+            try {
+                SSLContext context = SSLContext.getInstance("TLS");
+                TrustManager t = new X509TrustManager() {
+                    @Override
+                    public X509Certificate[] getAcceptedIssuers() {
+                        return null;
+                    }
+                    
+                    @Override
+                    public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+                    }
+                    
+                    @Override
+                    public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+                    }
+                };
+                TrustManager[] tm = new TrustManager[] { t };
+                context.init(null, tm, new SecureRandom());
+
+                FACTORY = context.getSocketFactory();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        public Socket createSocket() throws IOException {
+            return FACTORY.createSocket();
+        }
+
+        @Override
+        public Socket createSocket(Socket socket, String host, int port, boolean autoClose) throws IOException, UnknownHostException {
+            return FACTORY.createSocket(socket, host, port, autoClose);
+        }
+    }
 }
