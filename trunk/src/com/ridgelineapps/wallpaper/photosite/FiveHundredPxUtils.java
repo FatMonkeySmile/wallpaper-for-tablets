@@ -142,8 +142,8 @@ public class FiveHundredPxUtils {
                if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
                   entity2 = response.getEntity();
                   in = entity2.getContent();
-                  JSONObject json2 = new JSONObject(toString(in));
-                  if (json2 != null && json2.has("photos")) {
+                  json = new JSONObject(toString(in));
+                  if (json != null && json.has("photos")) {
 
                      JSONArray photos = (JSONArray) json.get("photos");
                      if (photos == null || photos.length() == 0) {
