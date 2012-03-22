@@ -61,7 +61,6 @@ public class PrefsPhotoSite extends PrefsFragmentBase {
         boolean siteOn = false;
         boolean allSitesOff = true;
 
-        // TODO: do more effeciently somehow?
         for (CheckBoxPreference pref : sitePrefs) {
             if(pref.isChecked()) {
                 allSitesOff = false;
