@@ -41,7 +41,7 @@ public class PhotoSiteWallpaper extends WallpaperBase {
     public Site site;
     Paint bitmapPaint;
     public boolean fill;
-    public static final Site[] sites = new Site[] { new NationalGeographicSite(), new NationalGeographicWallSite(), new FlickrSite(), new FlickrUserSite(), new TumblrSite(), new FiveHundredPxSite() };
+    public static final Site[] sites = new Site[] { /* new NationalGeographicSite(), new NationalGeographicWallSite(), */ new FlickrSite(), new FlickrUserSite(), new TumblrSite(), new FiveHundredPxSite() };
 
     public static final String CACHE_FILE_NAME = Environment.getExternalStorageDirectory().getAbsolutePath() + "/WallpaperForTablets/cached_image.png";
 
