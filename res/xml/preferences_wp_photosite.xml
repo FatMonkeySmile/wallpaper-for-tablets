@@ -52,8 +52,7 @@
 	</PreferenceCategory>
 	 	
 	<PreferenceCategory android:title="Site">
-
-	<!-- 
+	    
 	    <CheckBoxPreference 
 			android:key="site_national_geographic"  
 			android:defaultValue="true"
@@ -63,7 +62,6 @@
 			android:key="site_national_geographic_wall"  
 			android:defaultValue="false"
 			android:title="National Geographic Wallpapers" />
-	 -->
 			
 		<CheckBoxPreference 
 			android:key="site_flickr"  
