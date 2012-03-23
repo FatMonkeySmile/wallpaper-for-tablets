@@ -20,6 +20,7 @@ import java.io.FileOutputStream;
 import java.util.Map;
 
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -41,7 +42,7 @@ public class PhotoSiteWallpaper extends WallpaperBase {
     public Site site;
     Paint bitmapPaint;
     public boolean fill;
-    public static final Site[] sites = new Site[] { /* new NationalGeographicSite(), new NationalGeographicWallSite(), */ new FlickrSite(), new FlickrUserSite(), new TumblrSite(), new FiveHundredPxSite() };
+    public static final Site[] sites = new Site[] { new NationalGeographicSite(), new NationalGeographicWallSite(), new FlickrSite(), new FlickrUserSite(), new TumblrSite(), new FiveHundredPxSite() };
 
     public static final String CACHE_FILE_NAME = Environment.getExternalStorageDirectory().getAbsolutePath() + "/WallpaperForTablets/cached_image.png";
 
@@ -273,12 +274,28 @@ public class PhotoSiteWallpaper extends WallpaperBase {
 
     public void updateLastChanged() {
         lastChange = System.currentTimeMillis();
-        engine.getPrefs().edit().putLong("photosite_last_successful_refresh", lastChange).commit();
+        SharedPreferences prefs = engine.getPrefs();
+        if(prefs != null) {
+            Editor editor = prefs.edit();
+            if(editor != null) {
+                editor.putLong("photosite_last_successful_refresh", lastChange);
+                editor.commit();
+            }
+        }
+//        engine.getPrefs().edit().putLong("photosite_last_successful_refresh", lastChange).commit();
     }
 
     public void updateLastAttempt() {
         lastAttempt = System.currentTimeMillis();
-        engine.getPrefs().edit().putLong("photosite_last_refresh_attempt", lastAttempt).commit();
+        SharedPreferences prefs = engine.getPrefs();
+        if(prefs != null) {
+            Editor editor = prefs.edit();
+            if(editor != null) {
+                editor.putLong("photosite_last_refresh_attempt", lastAttempt);
+                editor.commit();
+            }
+        }
+//        engine.getPrefs().edit().putLong("photosite_last_refresh_attempt", lastAttempt).commit();
     }
 
     public void loadImage(boolean clearOld) {
@@ -350,14 +367,23 @@ public class PhotoSiteWallpaper extends WallpaperBase {
         synchronized (this) {
 
             if (image != null) {
+                FileOutputStream out = null;
                 try {
                     File file = new File(CACHE_FILE_NAME);
                     File parent = file.getParentFile();
                     parent.mkdirs();
-                    FileOutputStream out = new FileOutputStream(file);
+                    out = new FileOutputStream(file);
                     image.compress(Bitmap.CompressFormat.PNG, 100, out);
                 } catch (Exception e) {
                     Log.e("PhotoSiteWallpaper", "0", e);
+                }
+                finally {
+                    try {
+                        out.close();
+                    }
+                    catch(Exception e) {
+                        // Ignore...
+                    }
                 }
             }
         }
