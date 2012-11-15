@@ -18,39 +18,39 @@
 package com.ridgelineapps.wallpaper;
 
 import android.app.Activity;
+import android.app.WallpaperManager;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.widget.Toast;
+
+import com.ridgelineapps.wallpaper.preferences.Prefs;
 
 public class WallpaperForTabletsActivity extends Activity {
-    /** Called when the activity is first created. */
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.main);
+   @Override
+   public void onCreate(Bundle savedInstanceState) {
+      super.onCreate(savedInstanceState);
+      setContentView(R.layout.main);
 
-//        Intent i = new Intent(WallpaperForTabletsActivity.this, ProcessingActivity.class);
-//        startActivity(i);
-        
-//         Toast toast = Toast.makeText(this,
-//         "Choose \"Wallpaper for Tablets\" from the list to start the Live Wallpaper.",
-//         Toast.LENGTH_LONG);
-//         toast.show();
-//         Intent intent = new Intent();
-//         intent.setAction(WallpaperManager.ACTION_LIVE_WALLPAPER_CHOOSER);
-//         startActivity(intent);
+      Intent i = new Intent();
 
-        // TODO: can settings be launched if wp is active?
-        //Intent i = new Intent(WallpaperForTabletsActivity.this, Prefs.class);
-        //startActivity(i);
+      if (Build.VERSION.SDK_INT > 15) {
+         i.setAction(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER);
 
-        // ((Button) findViewById(R.id.button1)).setOnClickListener(new
-        // OnClickListener() {
-        // @Override
-        // public void onClick(View v) {
-        // Intent i = new Intent(AbstractPatternsActivity.this, Prefs.class);
-        // startActivity(i);
-        // }
-        // });
-    }
-
+         String p = DelegatingWallpaperService.class.getPackage().getName();
+         String c = DelegatingWallpaperService.class.getCanonicalName();
+         i.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT, new ComponentName(p, c));
+         startActivity(i);
+         
+         i = new Intent(this, Prefs.class);
+         startActivity(i);
+      } else {
+         Toast toast = Toast.makeText(this, "Choose \"Wallpaper for Tablets\" from the list to start the Live Wallpaper.", Toast.LENGTH_LONG);
+         toast.show();
+         i.setAction(WallpaperManager.ACTION_LIVE_WALLPAPER_CHOOSER);
+         startActivityForResult(i, 0);
+      }
+   }
 
 }

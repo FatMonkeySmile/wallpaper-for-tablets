@@ -20,17 +20,8 @@
 package com.ridgelineapps.wallpaper.preferences;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.preference.Preference;
-import android.preference.PreferenceManager;
 import android.util.AttributeSet;
-import android.view.View;
 import android.widget.ImageView;
-
-import com.ridgelineapps.wallpaper.R;
-import com.ridgelineapps.wallpaper.Utils;
 
 public class SelectPortraitImagePreference extends SelectImagePreference {
     ImageView imageView;
