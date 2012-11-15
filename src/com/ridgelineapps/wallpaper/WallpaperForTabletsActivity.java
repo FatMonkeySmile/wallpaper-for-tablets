@@ -18,8 +18,11 @@
 package com.ridgelineapps.wallpaper;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.WallpaperInfo;
 import android.app.WallpaperManager;
 import android.content.ComponentName;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -33,21 +36,36 @@ public class WallpaperForTabletsActivity extends Activity {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.main);
 
-      Intent i = new Intent();
-
       if (Build.VERSION.SDK_INT > 15) {
-         i.setAction(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER);
+         WallpaperManager wm = WallpaperManager.getInstance(this);
+         WallpaperInfo wi = wm.getWallpaperInfo();
+         if(wi != null && !wi.getPackageName().equals("com.ridgelineapps.wallpaper")) {
+            AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(this);
+            myAlertDialog.setTitle("Wallpaper for Tablets");
+            myAlertDialog.setMessage("Would you like to set Wallpaper for Tablets as the current wallpaper?");
+            myAlertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+               public void onClick(DialogInterface di, int x) {
+                  Intent i = new Intent();
+                  i.setAction(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER);
+                  String p = DelegatingWallpaperService.class.getPackage().getName();
+                  String c = DelegatingWallpaperService.class.getCanonicalName();
+                  i.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT, new ComponentName(p, c));
+                  startActivity(i);
+               }
+            });
+            myAlertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+               public void onClick(DialogInterface di, int x) {
+               }
+            });
+            myAlertDialog.show();
+         }
 
-         String p = DelegatingWallpaperService.class.getPackage().getName();
-         String c = DelegatingWallpaperService.class.getCanonicalName();
-         i.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT, new ComponentName(p, c));
-         startActivity(i);
-         
-         i = new Intent(this, Prefs.class);
+         Intent i = new Intent(this, Prefs.class);
          startActivity(i);
       } else {
          Toast toast = Toast.makeText(this, "Choose \"Wallpaper for Tablets\" from the list to start the Live Wallpaper.", Toast.LENGTH_LONG);
          toast.show();
+         Intent i = new Intent();
          i.setAction(WallpaperManager.ACTION_LIVE_WALLPAPER_CHOOSER);
          startActivityForResult(i, 0);
       }
